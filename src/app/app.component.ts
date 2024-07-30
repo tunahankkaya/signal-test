@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -7,6 +7,7 @@ import { RouterOutlet } from '@angular/router';
   imports: [RouterOutlet],
   template: `
     <h1>{{count()}}</h1>
+    <h1>Computed: {{countPlus()}}</h1>
     <br>
     <button (click)="increment()">+</button>
     <button (click)="decrement()">-</button>
@@ -22,6 +23,10 @@ import { RouterOutlet } from '@angular/router';
 export class AppComponent {
   count = signal(0);
   results = signal<string[]>([]);
+
+  //computed, effect 
+  countPlus = computed(() => this.count() + 1);
+  countEffect = effect(() => console.log(this.count() +"değişti"));
 
   increment() {
     /* 
